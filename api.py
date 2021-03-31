@@ -4,15 +4,18 @@ from athleteProfiles import *
 import json
 import copy
 from flask import request
+from flask_cors import CORS
 
 #use for deployment
 #app = Flask(__name__, static_folder='../build', static_url_path='/')
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    print("Hello, you connected to default route!")
+    return '<h1>"Hello"</h1>'
 
 @app.route('/api/time')
 def get_current_time():
