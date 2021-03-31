@@ -15,7 +15,7 @@ CORS(app)
 @app.route('/')
 def index():
     print("Hello, you connected to default route!")
-    return '<p1>Hello, this is the backend server for ncaaprs. A GET request to `https://ncaaprs-backend.herokuapp.com/api/athletes/?param1=${<insert team link here>}` will return a JSON obectt of a track team with all of its athletes prs in each event</p1>'
+    return '<p1>Hello, this is the backend server for ncaaprs. A GET request to `https://ncaaprs-backend.herokuapp.com/api/athletes/?param1=${insert team tfrrs link here}` will return a JSON object of a track team with all of its athletes prs in each event</p1>'
 
 @app.route('/api/time')
 def get_current_time():
@@ -25,7 +25,7 @@ def get_current_time():
 
 @app.route('/api/athletes/')
 def get_athlete_lists():
-    '''Returns a JSON object containingg lists of all events and its athletes for the given team the parameter is the url needed to go to to find the team roster '''
+    '''Returns a JSON object containing lists of all events and its athletes for the given team the parameter is the url needed to go to to find the team roster '''
     teamurl = request.args.get('param1')
     athletes = buildAthleteList(teamurl)
     athletes = setallprs(athletes)
