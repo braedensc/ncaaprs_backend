@@ -114,7 +114,7 @@ def getAthletes(teamurl):
         for i in range(1, len(p.tables[0])):
             for j in range(0, len(p.tables[0][i])):
                     num = p.tables[0][i][j].count(". ")
-                    if (num == 0):
+                    if (num == 0 and p.tables[0][i][j] != "10,000"):
                         num = p.tables[0][i][j].count(",")
                     extraLinkCount += num
         del athleteProfiles[:extraLinkCount]
