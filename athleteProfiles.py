@@ -12,7 +12,7 @@ import concurrent.futures
 from urllib.parse import quote
 
 timeFormats = ['%M:%S.%f', '%H:%M:%S.%f', '%S.%f']
-MAX_THREADS = 60
+MAX_THREADS = 8
 
 FIELDEVENTS = ["prHJ", "prLJ", "prTJ", "prPV", "prST", "prDT", "prHT", "prJT", "prWT"]
 
