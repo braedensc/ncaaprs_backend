@@ -77,7 +77,7 @@ def getAthleteTimes(profileurl):
             Parameters:
                     profileurl (String): The link to the athletes tfrrs page
     '''
-
+    print('profileurl', profileurl)
     req = Request(quote(profileurl, safe=':/'), headers={'User-Agent': 'Mozilla/5.0'})
     page1 = urlopen(req)
     html_bytes1 = page1.read()
@@ -106,26 +106,11 @@ def getAthletes(teamurl):
     while (p.tables[table][0][0] != "NAME"):
         table += 1
         athleteNames = p.tables[table]
-
-
-    if (table != 0):
-        athleteProfiles = getLinksToAthleteProfiles(html1)
-        extraLinkCount = 0
-        for i in range(1, len(p.tables[0])):
-            for j in range(0, len(p.tables[0][i])):
-                    num = p.tables[0][i][j].count(". ")
-                    if (num == 0 and p.tables[0][i][j] != "10,000"):
-                        num = p.tables[0][i][j].count(",")
-                    extraLinkCount += num
-        del athleteProfiles[:extraLinkCount]
-    else: 
-        athleteProfiles = getLinksToAthleteProfiles(html1)
+    athleteProfiles = getLinksToAthleteProfiles(html1)
     logo = getLogo(html1)
     teamTitle = getTeamTitle(html1)
     athleteList = []
     teamType = getTeamType(html1)
-    #print(athleteNames)
-    #print(athleteProfiles)
     for i in range(1, len(athleteNames) - 1):
         name = " ".join(athleteNames[i][0].split(", ")[::-1])
         athleteList.append(Athlete(name, athleteProfiles[i - 1], [], logo, teamTitle, teamType))
@@ -143,12 +128,15 @@ def getLinksToAthleteProfiles(html1):
             Parameters:
                     html1 (String): All the html code on the team roster web page, as a very very long String
     '''
-
-    urllist = re.findall(r"""<\s*A\s*HREF=["']([^=]+)["']""", html1)
-    string = '//www.tfrrs.org/athletes/'
+    with open('html_sample.txt', 'w') as f:
+        print(html1, file=f)
+    urllist = re.findall(r"""href="\/athletes.*html""", html1)
+    print('urlist', urllist)
+    string = '//tfrrs.org'
     urls = list(filter(lambda x : ('athletes' in x), urllist))
     for i in range(len(urls)):
-        urls[i] = urls[i].replace(" ", "")
+        urls[i] = string + (urls[i].replace("href=\"", ""))
+    pprint(urls)
     return urls
 
 
